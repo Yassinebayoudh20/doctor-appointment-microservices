@@ -1,6 +1,6 @@
 package edu.esprit.projetmicroservice.gestionmedecin.IService;
 
-import edu.esprit.projetmicroservice.gestionmedecin.entity.Doctor;
+import edu.esprit.projetmicroservice.gestionmedecin.model.Doctor;
 
 import java.util.List;
 

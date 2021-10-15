@@ -1,17 +1,20 @@
-package edu.esprit.projetmicroservice.gestionmedecin.entity;
+package edu.esprit.projetmicroservice.gestionmedecin.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Doctors")
+@Entity(name = "Doctor")
+@Table(name = "doctors")
 public class Doctor {
 
     @Id
@@ -26,7 +29,16 @@ public class Doctor {
 
     private String PhoneNumber;
 
+    private String Specialty;
+
     private String Sex;
+
+    @OneToMany(
+            mappedBy = "doctor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Appointement> patients = new ArrayList<Appointement>();
 
     private String Email;
 

@@ -1,6 +1,6 @@
 package edu.esprit.projetmicroservice.gestionmedecin.repository;
 
-import edu.esprit.projetmicroservice.gestionmedecin.entity.Doctor;
+import edu.esprit.projetmicroservice.gestionmedecin.model.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

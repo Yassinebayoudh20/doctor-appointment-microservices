@@ -1,6 +1,7 @@
 package edu.esprit.projetmicroservice.gestionmedecin.controller;
 
-import edu.esprit.projetmicroservice.gestionmedecin.entity.Doctor;
+import edu.esprit.projetmicroservice.gestionmedecin.model.Doctor;
+import edu.esprit.projetmicroservice.gestionmedecin.model.Patient;
 import edu.esprit.projetmicroservice.gestionmedecin.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -40,6 +42,7 @@ public class DoctorController {
         "phoneNumber": "28114329",
         "birthday": "1997-09-15",
         "lastName": "Bayoudh",
+        "specialty":"Sergent",
         "sex": "Male",
         "email": "yassine@gmail.com"
         } */
@@ -80,6 +83,7 @@ public class DoctorController {
         "phoneNumber": "28114329",
         "birthday": "1997-09-15",
         "lastName": "Bayoudh",
+        "specialty":"Sergent",
         "sex": "Male",
         "email": "yassine@gmail.com"
         } */

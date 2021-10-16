@@ -1,14 +1,11 @@
 package edu.esprit.projetmicroservice.gestionmedecin.service;
 
 import edu.esprit.projetmicroservice.gestionmedecin.IService.IDoctorService;
-import edu.esprit.projetmicroservice.gestionmedecin.entity.Doctor;
+import edu.esprit.projetmicroservice.gestionmedecin.model.Doctor;
 import edu.esprit.projetmicroservice.gestionmedecin.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 

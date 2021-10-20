@@ -1,7 +1,7 @@
 package edu.esprit.projetmicroservice.gestionmedecin.controller;
 
+import edu.esprit.projetmicroservice.gestionmedecin.dto.DoctorDTO;
 import edu.esprit.projetmicroservice.gestionmedecin.model.Doctor;
-import edu.esprit.projetmicroservice.gestionmedecin.model.Patient;
 import edu.esprit.projetmicroservice.gestionmedecin.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

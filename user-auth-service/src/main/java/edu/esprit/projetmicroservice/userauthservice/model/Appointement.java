@@ -1,5 +1,7 @@
 package edu.esprit.projetmicroservice.userauthservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,9 +29,15 @@ public class Appointement  {
       private User patient;
 
       @Column(name = "appointement_date")
-      private Date appointementDate;
+      @JsonFormat(pattern = "yyyy-MM-dd")
+      private String appointementDate;
 
       @Column(name = "created_on")
       private Date createdOn = new Date();
 
+      public Appointement(User doctor, User patient, String appointementDate) {
+            this.doctor = doctor;
+            this.patient = patient;
+            this.appointementDate = appointementDate;
+      }
 }

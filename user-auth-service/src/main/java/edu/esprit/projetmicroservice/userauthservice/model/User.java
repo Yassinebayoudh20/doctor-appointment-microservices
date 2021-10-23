@@ -1,5 +1,6 @@
 package edu.esprit.projetmicroservice.userauthservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonIgnore
     private List<Appointement> userAppointements = new ArrayList<>();
 
     public User(String username, String email, String password) {
@@ -49,4 +51,5 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
 }

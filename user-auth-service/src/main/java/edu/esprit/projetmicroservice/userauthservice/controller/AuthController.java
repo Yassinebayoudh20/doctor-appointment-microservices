@@ -113,7 +113,7 @@ public class AuthController {
                         roles.add(modRole);
 
                         break;
-                    default:
+                    case "patient":
                         Role userRole = roleRepository.findByName(ERole.ROLE_PATIENT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);

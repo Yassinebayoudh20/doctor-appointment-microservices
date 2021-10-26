@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 @Data
@@ -21,28 +19,28 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String Name;
+    private String name;
 
-    private String LastName;
+    private String lastName;
 
-    private Date Birthday;
+    private Date birthday;
 
-    private String PhoneNumber;
+    private String phoneNumber;
 
-    private String Specialty;
+    private String specialty;
 
-    private String Sex;
+    private String sex;
 
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "doctor",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Appointement> patients = new ArrayList<Appointement>();
+    private List<Appointement> patients = new ArrayList<>();*/
 
-    private String Email;
+    private String email;
 
-    private String Password;
+    private String password;
 
 
 }

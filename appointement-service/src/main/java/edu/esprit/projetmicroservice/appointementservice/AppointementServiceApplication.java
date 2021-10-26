@@ -1,4 +1,4 @@
-package edu.esprit.projetmicroservice.userauthservice;
+package edu.esprit.projetmicroservice.appointementservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
-public class UserAuthServiceApplication {
+public class AppointementServiceApplication {
 
 	@Bean
 	public RestTemplate getRestTemplate(){
@@ -26,8 +26,9 @@ public class UserAuthServiceApplication {
 		return restTemplate;
 	}
 
+
 	public static void main(String[] args) {
-		SpringApplication.run(UserAuthServiceApplication.class, args);
+		SpringApplication.run(AppointementServiceApplication.class, args);
 	}
 
 }

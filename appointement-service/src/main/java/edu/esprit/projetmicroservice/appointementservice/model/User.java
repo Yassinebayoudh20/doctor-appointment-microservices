@@ -1,16 +1,15 @@
-package edu.esprit.projetmicroservice.userauthservice.payload.request;
+package edu.esprit.projetmicroservice.appointementservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignupRequest {
+public class User {
     private String username;
 
     private String password;

@@ -1,6 +1,8 @@
 package edu.esprit.projetmicroservice.userauthservice.security.jwt;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.esprit.projetmicroservice.userauthservice.security.service.UserDetailsImpl;
 import org.slf4j.Logger;
@@ -24,9 +26,12 @@ public class JwtUtils {
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
+        Map<String,Object> mapUserDetails = new HashMap<>();
+        mapUserDetails.put("userDetails",userPrincipal);
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                //.setClaims(mapUserDetails)
+                .claim("user_details",userPrincipal)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

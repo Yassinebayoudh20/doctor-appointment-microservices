@@ -32,6 +32,21 @@ public class User {
 
     private String password;
 
+    @Column(nullable = true)
+    private String firstName;
+
+    @Column(nullable = true)
+    private String lastname;
+
+    @Column(nullable = true)
+    private String address;
+
+    @Column(nullable = true)
+    private String phone;
+
+    @Column(nullable = true)
+    private String about;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -52,4 +67,14 @@ public class User {
         this.password = password;
     }
 
+    public User(String username, String email, String password, String firstName, String lastname, String address, String phone, String about) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone = phone;
+        this.about = about;
+    }
 }

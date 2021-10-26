@@ -1,6 +1,7 @@
 package edu.esprit.projetmicroservice.userauthservice.service;
 
 import edu.esprit.projetmicroservice.userauthservice.model.Appointement;
+import edu.esprit.projetmicroservice.userauthservice.model.ERole;
 import edu.esprit.projetmicroservice.userauthservice.model.User;
 import edu.esprit.projetmicroservice.userauthservice.repository.AppointementRepository;
 import edu.esprit.projetmicroservice.userauthservice.repository.UserRepository;
@@ -80,5 +81,13 @@ public class UserServiceImpl implements UserService{
             appointementService.addAppointement(patient.getId(),doctor.getId(),appointementDate);
             return 1;
         } else return 0;
+    }
+
+    @Override
+    public List<User> getUsersByRole(ERole role) {
+        log.info("role {}",role.name());
+            List<User> users = userRepository.findAllByRolename(role.name());
+            if(users.isEmpty()) return null;
+            return users;
     }
 }

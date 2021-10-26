@@ -18,6 +18,8 @@ import edu.esprit.projetmicroservice.userauthservice.repository.RoleRepository;
 import edu.esprit.projetmicroservice.userauthservice.repository.UserRepository;
 import edu.esprit.projetmicroservice.userauthservice.security.jwt.JwtUtils;
 import edu.esprit.projetmicroservice.userauthservice.security.service.UserDetailsImpl;
+import edu.esprit.projetmicroservice.userauthservice.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,16 +27,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@Slf4j
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -50,6 +50,26 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable long id) {
+        try{
+            User user = userService.findUserById(id);
+            if(user == null) return ResponseEntity.notFound().build();
+            log.info("Getting User id = {}" ,id);
+            return ResponseEntity.ok(user);
+        }catch(Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -89,7 +109,12 @@ public class AuthController {
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()),
+                        signUpRequest.getFirstName(),
+                        signUpRequest.getLastname(),
+                        signUpRequest.getAddress(),
+                        signUpRequest.getPhone(),
+                        signUpRequest.getAbout());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

@@ -2,16 +2,18 @@ package edu.esprit.projetmicroservice.userauthservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.esprit.projetmicroservice.userauthservice.model.Appointement;
+import edu.esprit.projetmicroservice.userauthservice.model.AppointementVO;
+import edu.esprit.projetmicroservice.userauthservice.model.Role;
 import edu.esprit.projetmicroservice.userauthservice.model.User;
 import edu.esprit.projetmicroservice.userauthservice.payload.response.MessageResponse;
 import edu.esprit.projetmicroservice.userauthservice.service.UserService;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.ws.rs.Consumes;
 import java.text.SimpleDateFormat;
@@ -29,6 +31,22 @@ public class AdminController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable long id) {
+        try{
+            User user = userService.findUserById(id);
+            if(user == null) return ResponseEntity.notFound().build();
+            log.info("Getting User id = {}" ,id);
+            return ResponseEntity.ok(user);
+        }catch(Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
     @PutMapping("/users/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
@@ -43,6 +61,7 @@ public class AdminController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
 
     @DeleteMapping("/users/{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -72,29 +91,31 @@ public class AdminController {
     }
     }
 
-    @GetMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<User> getUserById(@PathVariable long id) {
-        try{
-            User user = userService.findUserById(id);
-            if(user == null) return ResponseEntity.notFound().build();
-            log.info("Getting User id = {}" ,id);
-            return ResponseEntity.ok(user);
-        }catch(Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
+
+
+    @PostMapping(value = "{idPatient}/doctors/{idDoctor}")
+    @PreAuthorize("hasRole('ROLE_PATIENT') or hasRole('ADMIN')")
+    public AppointementVO addPatientAppointement(@PathVariable long idPatient,
+                                                    @PathVariable long idDoctor ,
+                                                    @RequestParam String appointementDate ) throws Exception {
+       String url = "http://localhost:9003/api/appointement/";
+       HttpHeaders headers = new HttpHeaders();
+       headers.setContentType(MediaType.APPLICATION_JSON);
+       AppointementVO appointementVO = new AppointementVO(new SimpleDateFormat("yyyy-MM-dd").parse(appointementDate),idPatient,idDoctor);
+       HttpEntity<AppointementVO> request = new HttpEntity<>(appointementVO,headers);
+       ResponseEntity<AppointementVO> result = restTemplate.postForEntity(url,request,AppointementVO.class);
+       if(result.getStatusCode() == HttpStatus.CREATED ){
+            return result.getBody();
+        }else return null;
     }
 
-    @PutMapping(value = "{idPatient}/doctors/{idDoctor}")
+    @GetMapping("usersByRole")
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_PATIENT')")
-    public ResponseEntity<Integer> addPatientAppointement(@PathVariable long idPatient,
-                                                    @PathVariable long idDoctor ,
-                                                    @RequestBody String appointementDate ) throws Exception {
-        int isAdded = userService.addPatientApointement(idPatient,idDoctor,new SimpleDateFormat("dd/MM/yyyy").parse("15/09/2021"));
-          log.info("Getting Patient with Id {} appointements {}",idPatient , isAdded);
-          return ResponseEntity.ok(isAdded);
+    public ResponseEntity<?> findUsersByRole(@RequestBody Role role){
+            //if(role.isEmpty()) return ResponseEntity.badRequest().build();
+            List<User> users = userService.getUsersByRole(role.getName());
+            if(users == null) return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(users);
     }
 
 

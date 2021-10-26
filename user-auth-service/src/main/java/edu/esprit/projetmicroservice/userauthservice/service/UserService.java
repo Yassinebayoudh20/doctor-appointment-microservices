@@ -1,6 +1,7 @@
 package edu.esprit.projetmicroservice.userauthservice.service;
 
 import edu.esprit.projetmicroservice.userauthservice.model.Appointement;
+import edu.esprit.projetmicroservice.userauthservice.model.ERole;
 import edu.esprit.projetmicroservice.userauthservice.model.User;
 
 import java.time.LocalDate;
@@ -13,4 +14,5 @@ public interface UserService {
     public List<User> getAllUsers();
     public User findUserById(long id);
     public int addPatientApointement(long idPatient , long idDoctor , Date appointementDate);
+    public List<User> getUsersByRole(ERole role);
 }

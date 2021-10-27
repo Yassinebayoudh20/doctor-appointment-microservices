@@ -36,7 +36,7 @@ User Manegment:
 * Manipulate the medecins
 
 ##Architecture:	
-![Architector schema](https://www.google.com/search?q=zuul+and+docker+architecture&tbm=isch&ved=2ahUKEwics9K35OvzAhUHnRoKHZwsDjEQ2-cCegQIABAA&oq=zuul+and+docker+architecture&gs_lcp=CgNpbWcQAzoECAAQEzoICAAQCBAeEBM6CAgAEAcQHhATUIygA1iGsQNgwbQDaABwAHgAgAGIAYgBzQqSAQQxLjExmAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=E-Z5YdzdNIe6apzZuIgD&bih=753&biw=1536#imgrc=YHl4zvwpv0ha1M)
+![Architector schema](https://i1.wp.com/thebasictechinfo.com/wp-content/uploads/2021/06/maxresdefault.jpg?w=1280&ssl=1)
 
 ## Setup
 To run this project, install it locally using npm:

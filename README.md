@@ -39,6 +39,8 @@ User Manegment:
 ## User Routes List
 | Route Name  | Action  | Method |
 | :------------ |:---------------:| -----:|
+| Discovery Server      | http://localhost:9001/eureka | POST |
+| Zuul Gateway      | http://localhost:9000/ | Nan |
 | Signup user      | http://localhost:9000/user-service/api/auth/signup | POST |
 | Signin user      | http://localhost:9000/user-service/api/auth/signin        |   POST |
 | Get user by id | http://localhost:9000/user-service/auth/users/1        |   Get |

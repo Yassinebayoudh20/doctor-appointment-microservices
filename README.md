@@ -3,6 +3,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Fonctionnalities](#fonctionnalities)
+* [Routes List](#routes-list)
 * [Architecture](#architecture)
 * [Setup](#setup)
 
@@ -34,6 +35,20 @@ User Manegment:
 * Manipulate the prescription 
 * Create medecin with information of use and related it to the prescription
 * Manipulate the medecins
+
+## User Routes List
+| Route Name  | Action  | Method |
+| :------------ |:---------------:| -----:|
+| Signup user      | http://localhost:9000/user-service/api/auth/signup | POST |
+| Signin user      | http://localhost:9000/user-service/api/auth/signin        |   POST |
+| Get user by id | http://localhost:9000/user-service/auth/users/1        |   Get |
+| Update user | http://localhost:9000/user-service/auth/users/1        |   PUT |
+| Delete user | http://localhost:9000/user-service/auth/users/1        |   DELETE |
+| Get List users | http://localhost:9000/user-service/api/auth/users        |   GET |
+| Add patient appointement | http://localhost:9000/user-service/api/auth/1/doctors/2        |   POST |
+
+
+
 
 ## Architecture:	
 ![Architector schema](https://i1.wp.com/thebasictechinfo.com/wp-content/uploads/2021/06/maxresdefault.jpg?w=1280&ssl=1)
